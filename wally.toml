@@ -7,5 +7,6 @@ realm = "shared"
 [dependencies]
 Net = "vorlias/net@^3.0"
 t = "osyrisrblx/t@^3.0"
-react-lua = "uglypoe/react-lua@17.0.1"
 matter = "matter-ecs/matter@0.8.5"
+plasma = "matter-ecs/plasma@0.4.4"
+rewire = "sayhisam1/rewire@0.3.0"
