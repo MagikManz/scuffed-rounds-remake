@@ -34,7 +34,7 @@ function Direction.Angle(angle: number, pixels: number): Vector2
   assert(typeof(angle) == "number", "number expected got "..typeof(angle))
   assert(typeof(pixels) == "number", "number expected got "..typeof(pixels))
 
-	local radians = math.rad(angle)
+  local radians = math.rad(angle)
   local dx = math.cos(radians) * pixels
   local dy = math.sin(radians) * pixels
 
