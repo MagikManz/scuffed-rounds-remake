@@ -18,6 +18,8 @@ export type Components = {
     Client: Client,
     Renderable: Renderable,
     Transform: Transform,
+    
+    Gravity: Gravity,
 }
 
 local Components: Components = { } :: Components
@@ -38,13 +40,18 @@ export type Client = typeof(component(nil, { })) & {
 
 Components.Transform = component("Transform", { })
 export type Transform = typeof(component(nil, { })) & {
-    moveForce: Vector3
+    moveForce: Vector2
 }
 
 Components.Renderable = component("Renderable", {})
 export type Renderable = typeof(Matter.component(nil, {})) & {
-	model: Model,
-    root: Part & { LinearVelocity: LinearVelocity },
+	model: Frame,
 }
+
+Components.Gravity = component("Gravity", { })
+export type Gravity = typeof(component(nil, { })) & {
+    gravityForce: number,
+}
+
 
 return table.freeze(Components) :: Components

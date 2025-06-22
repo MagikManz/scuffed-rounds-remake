@@ -1,11 +1,12 @@
-
-
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Components = require(ReplicatedStorage.Shared.Components)
-local Character = ReplicatedStorage.Character.character
 
 local MatterTypes = require(ReplicatedStorage.Shared.MatterTypes)
+
+local Engine = require(ReplicatedStorage.Shared.modules.Engine)
+
+local EngineCharacter = Engine.Classes.Character
 
 local function spawnCharacter(world: MatterTypes.World)
     for 
@@ -13,15 +14,15 @@ local function spawnCharacter(world: MatterTypes.World)
         client: Components.Client,
         _character: Components.Character
     in world:query(Components.Client, Components.Character):without(Components.Renderable) do
-
-        local playerCharacter = Character:Clone()
-        playerCharacter:SetAttribute("playerId", client.player.UserId)
-        playerCharacter.Parent = workspace
+        local character2D = EngineCharacter.new(client.player.Name)
 
         world:insert(id,
+            Components.Gravity({
+                gravityForce = 9.81
+            }),
             Components.Renderable({
-                model = playerCharacter,
-                root = playerCharacter.PrimaryPart,
+                model = character2D.Object,
+                ref = character2D
             }),
             Components.Transform({
                 moveForce = Vector3.new(0, 0, 0)
