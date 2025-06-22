@@ -16,7 +16,12 @@ export type Character = {
   new: (name: string) -> Character,
 
   __index: Character,
+  __tostring: () -> string,
 }
+
+function Character:__tostring(): string
+  return "Character: " .. self.name
+end
 
 function Character.new(name: string): Character
   assert(typeof(name) == "string", "string expected got "..typeof(name))
