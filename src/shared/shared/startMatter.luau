@@ -10,7 +10,7 @@ local Matter = require(Packages.matter)
 local Plasma = require(Packages.plasma)
 local Rewire = require(Packages.rewire)
 
-local Components = require(ReplicatedStorage.Shared.Components)
+local Components = require(ReplicatedStorage.shared.Components)
 
 local HotReloader = Rewire.HotReloader
 

@@ -1,10 +1,10 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Components = require(ReplicatedStorage.Shared.Components)
+local Components = require(ReplicatedStorage.shared.Components)
 
-local MatterTypes = require(ReplicatedStorage.Shared.MatterTypes)
+local MatterTypes = require(ReplicatedStorage.shared.MatterTypes)
 
-local Engine = require(ReplicatedStorage.Shared.modules.Engine)
+local Engine = require(ReplicatedStorage.shared.modules.Engine)
 
 local EngineCharacter = Engine.Classes.Character
 

@@ -1,12 +1,12 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Components = require(ReplicatedStorage.Shared.Components)
+local Components = require(ReplicatedStorage.shared.Components)
 
-local MatterTypes = require(ReplicatedStorage.Shared.MatterTypes)
+local MatterTypes = require(ReplicatedStorage.shared.MatterTypes)
 
-local Engine = require(ReplicatedStorage.Shared.modules.Engine)
+local Engine = require(ReplicatedStorage.shared.modules.Engine)
 
-local Raycast2D = require(ReplicatedStorage.Shared.modules.Raycast2D)
+local Raycast2D = require(ReplicatedStorage.shared.modules.Raycast2D)
 
 local function transformCharacters(world: MatterTypes.World)
     for 
@@ -29,7 +29,7 @@ local function transformCharacters(world: MatterTypes.World)
 
         local characterObject = renderable.model
       
-        local hit, hitPosition = Engine.Workspace:Raycast(characterObject.AbsolutePosition, Raycast2D.Direction.Down(1080), {
+        local hit, hitPosition = Engine.Workspace:Raycast(characterObject.AbsolutePosition, Raycast2D.Direction.Down(1000), {
             FilterDescendantsInstances = { characterObject },
             FilterType = Enum.RaycastFilterType.Exclude,
             RespectVisibility = true,
@@ -37,10 +37,9 @@ local function transformCharacters(world: MatterTypes.World)
         })
 
         if hit then
-            local hitPositionY = hitPosition.Y
             characterObject.Position = 
-                UDim2.fromOffset(characterObject.AbsolutePosition.X, hitPositionY)
-                - UDim2.fromOffset(0, characterObject.AbsoluteSize.Y)
+                UDim2.fromOffset(characterObject.AbsolutePosition.X, hitPosition.Y)
+                - UDim2.fromOffset(0, hit.AbsoluteSize.Y / 2)
         else
             warn("No ground detected for character: " .. characterObject.Name)
         end

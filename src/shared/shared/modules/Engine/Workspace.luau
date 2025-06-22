@@ -11,8 +11,8 @@ export type Workspace = {
   __index: Workspace,
 }
 
-local Raycast2D = require(ReplicatedStorage.Shared.modules.Raycast2D)
-local GetGameObject = require(ReplicatedStorage.Shared.modules.GetGameObject)
+local Raycast2D = require(ReplicatedStorage.shared.modules.Raycast2D)
+local GetGameObject = require(ReplicatedStorage.shared.modules.GetGameObject)
 
 type Raycast2D = Raycast2D.Raycast2D
 type RaySettings = Raycast2D.RaySettings

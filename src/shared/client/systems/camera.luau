@@ -8,7 +8,7 @@
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local MatterTypes = require(ReplicatedStorage.Shared.MatterTypes)
+local MatterTypes = require(ReplicatedStorage.shared.MatterTypes)
 
 local currentStage = workspace:WaitForChild("Stage")
 

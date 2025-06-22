@@ -3,7 +3,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Character: Character = { } :: Character
 Character.__index = Character
 
-local GetGameObject = require(ReplicatedStorage.Shared.modules.GetGameObject)
+local GetGameObject = require(ReplicatedStorage.shared.modules.GetGameObject)
 
 export type Character = {
   Object: Frame & {

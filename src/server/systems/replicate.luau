@@ -9,12 +9,12 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 
-local Remotes = require(ReplicatedStorage.Shared.Remotes)
+local Remotes = require(ReplicatedStorage.shared.Remotes)
 
 local Matter = require(ReplicatedStorage.Packages.matter)
-local Components = require(ReplicatedStorage.Shared.Components)
+local Components = require(ReplicatedStorage.shared.Components)
 
-local MatterTypes = require(ReplicatedStorage.Shared.MatterTypes)
+local MatterTypes = require(ReplicatedStorage.shared.MatterTypes)
 
 local MatterServerRemote = Remotes.Server:Get("MatterServer")
 print("MatterServerRemote", MatterServerRemote)

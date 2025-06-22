@@ -3,7 +3,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Game: Game = { } :: Game
 Game.__index = Game
 
-local Workspace = require(ReplicatedStorage.Shared.modules.Engine.Workspace)
+local Workspace = require(ReplicatedStorage.shared.modules.Engine.Workspace)
 
 export type Game = {
   DataModel: ScreenGui,
@@ -15,8 +15,8 @@ export type Game = {
 }
 
 local function Init()
-  local GetGameObject = require(ReplicatedStorage.Shared.modules.GetGameObject)
-  local ScaleWithScreen = require(ReplicatedStorage.Shared.modules.ScaleWithScreen)
+  local GetGameObject = require(ReplicatedStorage.shared.modules.GetGameObject)
+  local ScaleWithScreen = require(ReplicatedStorage.shared.modules.ScaleWithScreen)
 
   Game.DataModel = GetGameObject("DataModel") :: ScreenGui
 

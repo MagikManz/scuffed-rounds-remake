@@ -8,12 +8,19 @@
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local start = require(ReplicatedStorage.Shared.startMatter)
-local receiveReplication = require(ReplicatedStorage.Client.receiveReplication)
+local start = require(ReplicatedStorage.shared.startMatter)
+local receiveReplication = require(ReplicatedStorage.client.receiveReplication)
+local initGame = require(ReplicatedStorage.client.initGame)
+
+print("starting World...")
+initGame()
 
 local world, state = start({
-	ReplicatedStorage.Shared.systems,
-	ReplicatedStorage.Client.systems,
+	ReplicatedStorage.shared.systems,
+	ReplicatedStorage.client.systems,
 })
 
+print("setting up replication...")
 receiveReplication(world, state)
+
+print("finished loading world!")

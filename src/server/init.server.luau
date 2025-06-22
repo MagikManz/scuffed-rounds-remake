@@ -8,6 +8,6 @@
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local startMatter = require(ReplicatedStorage.Shared.startMatter)
+local startMatter = require(ReplicatedStorage.shared.startMatter)
 
-startMatter({ script.systems, ReplicatedStorage.Shared.systems })
+startMatter({ script.systems, ReplicatedStorage.shared.systems })

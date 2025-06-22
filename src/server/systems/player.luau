@@ -10,9 +10,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 
 local Matter = require(ReplicatedStorage.Packages.matter)
-local MatterTypes = require(ReplicatedStorage.Shared.MatterTypes)
+local MatterTypes = require(ReplicatedStorage.shared.MatterTypes)
 
-local Components = require(ReplicatedStorage.Shared.Components)
+local Components = require(ReplicatedStorage.shared.Components)
 
 local function playerAdded(world: MatterTypes.World)
     for _, player: Player in Matter.useEvent(Players, "PlayerAdded") do
