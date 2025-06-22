@@ -13,7 +13,7 @@ local function transformCharacters(world: MatterTypes.World)
         id,
         character: Components.Character,
         renderable: Components.Renderable,
-        _transform: Components.Transform
+        transform: Components.Transform
     in world:query(Components.Character, Components.Renderable, Components.Transform) do
         local health = character.health
         if health <= 0 then
@@ -21,14 +21,11 @@ local function transformCharacters(world: MatterTypes.World)
             continue
         end
 
-        local map = Engine.GetGameObject("Map")
-        if not map then
-            warn("Map not found in Engine")
-            continue
-        end
-
         local characterObject = renderable.model
-      
+        local characterPosition = characterObject.AbsolutePosition
+
+        local moveForce = transform.moveForce
+
         local hit, hitPosition = Engine.Workspace:Raycast(characterObject.AbsolutePosition, Raycast2D.Direction.Down(1000), {
             FilterDescendantsInstances = { characterObject },
             FilterType = Enum.RaycastFilterType.Exclude,
@@ -37,12 +34,16 @@ local function transformCharacters(world: MatterTypes.World)
         })
 
         if hit then
-            characterObject.Position = 
-                UDim2.fromOffset(characterObject.AbsolutePosition.X, hitPosition.Y)
-                - UDim2.fromOffset(0, hit.AbsoluteSize.Y / 2)
+            characterPosition = Vector2.new(characterPosition.X, hitPosition.Y) - Vector2.yAxis * hit.AbsoluteSize.Y / 2 
         else
             warn("No ground detected for character: " .. characterObject.Name)
         end
+
+        if moveForce.Magnitude > 0 then
+            characterPosition += moveForce
+        end
+
+        characterObject.Position = UDim2.fromOffset(characterPosition.X, characterPosition.Y)
     end
 end
 
