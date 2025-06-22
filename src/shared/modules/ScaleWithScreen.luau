@@ -1,0 +1,68 @@
+local camera = workspace.CurrentCamera
+local IDEAL_SCREEN_SIZE = Vector2.new(1920, 1080)
+
+local function sortObjectsByPriority(objects: { Instance }): { Instance }
+    table.sort(objects, function(a, b)
+        local priorityA = a:GetAttribute("Priority") or 0
+        local priorityB = b:GetAttribute("Priority") or 0
+
+        return priorityA > priorityB
+    end)
+  
+    return objects
+end
+
+return function(screenGui: ScreenGui)
+  local originalPositions = {}
+
+  local function scalePosition(position: UDim2): UDim2
+      local screenSize = camera.ViewportSize
+      local scaleX = screenSize.X / IDEAL_SCREEN_SIZE.X
+      local scaleY = screenSize.Y / IDEAL_SCREEN_SIZE.Y
+
+      return UDim2.new(
+          position.X.Scale,
+          position.X.Offset * scaleX,
+          position.Y.Scale,
+          position.Y.Offset * scaleY
+      )
+  end
+
+  local function updatePosition(descendant)
+    local originPosition = originalPositions[descendant]
+    if originPosition == nil then
+      originalPositions[descendant] = descendant.Position
+      originPosition = descendant.Position
+
+      descendant:GetPropertyChangedSignal("Parent"):Connect(function()
+        if descendant.Parent == nil then
+          originalPositions[descendant] = nil
+        end
+      end)
+    end
+
+    descendant.Position = scalePosition(originPosition)
+  end
+
+  local function updatePositionByPriority()
+    for _, child in ipairs(sortObjectsByPriority(screenGui:GetChildren())) do
+      for _, descendant in ipairs(child:GetDescendants()) do
+        if descendant:IsA("GuiObject") == false then
+          continue
+        end
+
+        updatePosition(descendant)
+      end
+    end
+  end
+
+  updatePositionByPriority()
+
+  task.spawn(function()
+    while true do
+      updatePositionByPriority()
+      
+      task.wait()
+    end
+  end)
+end
