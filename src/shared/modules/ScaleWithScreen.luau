@@ -46,6 +46,10 @@ return function(screenGui: ScreenGui)
 
   local function updatePositionByPriority()
     for _, child in ipairs(sortObjectsByPriority(screenGui:GetChildren())) do
+      if child:GetAttribute("Static") ~= true then
+        continue
+      end
+
       for _, descendant in ipairs(child:GetDescendants()) do
         if descendant:IsA("GuiObject") == false then
           continue
