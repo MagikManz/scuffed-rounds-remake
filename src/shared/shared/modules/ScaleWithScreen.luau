@@ -13,12 +13,13 @@ local function sortObjectsByPriority(objects: { Instance }): { Instance }
 end
 
 return function(screenGui: ScreenGui)
-  local originalPositions = {}
+  local lastViewportSize = Vector2.zero
+  local positionCache = { } :: { [Instance]: UDim2 }
 
   local function scalePosition(position: UDim2): UDim2
       local screenSize = camera.ViewportSize
-      local scaleX = screenSize.X / IDEAL_SCREEN_SIZE.X
-      local scaleY = screenSize.Y / IDEAL_SCREEN_SIZE.Y
+      local scaleX = math.ceil(screenSize.X / IDEAL_SCREEN_SIZE.X)
+      local scaleY = math.ceil(screenSize.Y / IDEAL_SCREEN_SIZE.Y)
 
       return UDim2.new(
           position.X.Scale,
@@ -29,22 +30,19 @@ return function(screenGui: ScreenGui)
   end
 
   local function updatePosition(descendant)
-    local originPosition = originalPositions[descendant]
-    if originPosition == nil then
-      originalPositions[descendant] = descendant.Position
-      originPosition = descendant.Position
+    local position = positionCache[descendant] or descendant.Position
+    positionCache[descendant] = descendant.Position
 
-      descendant:GetPropertyChangedSignal("Parent"):Connect(function()
-        if descendant.Parent == nil then
-          originalPositions[descendant] = nil
-        end
-      end)
-    end
-
-    descendant.Position = scalePosition(originPosition)
+    descendant.Position = scalePosition(position)
   end
 
   local function updatePositionByPriority()
+    if camera.ViewportSize == lastViewportSize then
+      return
+    end
+
+    lastViewportSize = camera.ViewportSize
+
     for _, child in ipairs(sortObjectsByPriority(screenGui:GetChildren())) do
       if child:GetAttribute("Static") ~= true then
         continue
