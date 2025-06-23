@@ -26,6 +26,7 @@ local function spawnCharacter(world: MatterTypes.World)
             }),
             Components.Transform({
                 moveForce = Vector2.zero,
+                downwardForce = Vector2.zero
             })
         )
     end

@@ -27,21 +27,27 @@ local function characterInputs(world: MatterTypes.World)
         _renderable: Components.Renderable,
         _character: Components.Character
     in world:query(Components.Client, Components.Transform, Components.Renderable, Components.Character) do
-      if client.player ~= Player then
-        continue
-      end
-
-      local moveForce = Vector2.zero
-      for keyCode, direction in pairs(KEY_MAP) do
-        if UserInputService:IsKeyDown(keyCode) then
-          moveForce += direction
+        if client.player ~= Player then
+          continue
         end
-      end
 
-      world:insert(id, transform:patch({
-        moveForce = moveForce,
-      }))
+        local moveForce = Vector2.zero
+        for keyCode, direction in pairs(KEY_MAP) do
+          if UserInputService:IsKeyDown(keyCode) then
+            moveForce += direction
+          end
+        end
 
+        if moveForce.Magnitude == 0 then
+            world:insert(id, transform:patch({
+                moveForce = Vector2.zero,
+            }))
+          continue
+        end
+
+        world:insert(id, transform:patch({
+          moveForce = moveForce,
+        }))
     end
 end
 

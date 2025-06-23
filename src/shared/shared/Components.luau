@@ -40,7 +40,8 @@ export type Client = typeof(component(nil, { })) & {
 
 Components.Transform = component("Transform", { })
 export type Transform = typeof(component(nil, { })) & {
-    moveForce: Vector2
+    moveForce: Vector2,
+    downwardForce: Vector2,
 }
 
 Components.Renderable = component("Renderable", {})

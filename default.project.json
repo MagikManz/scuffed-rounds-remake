@@ -8,7 +8,9 @@
         "$path": "Packages"
       },
 
-      "$path": "src/shared"
+      "$path": "src/shared",
+
+      "$ignoreUnknownInstances": true
     },
 
     "ServerScriptService": {
